@@ -116,13 +116,37 @@ const AllComplaintsCards = ({ complaints, onViewDetails }) => {
               }}
             >
               {/* Image & Ribbon */}
-              <div style={{ position: "relative", height: "220px", overflow: "hidden" }}>
+              {/* <div style={{ position: "relative", height: "220px", overflow: "hidden" }}>
                 <img
                   src={c.imageUrl ? `http://localhost:8081${c.imageUrl}` : "https://via.placeholder.com/400x200"}
                   alt={c.title}
                   style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }}
                   onClick={() => c.imageUrl && setPreviewImage(`http://localhost:8081${c.imageUrl}`)}
-                />
+                />  */} 
+
+                {/* Image & Ribbon */}
+<div style={{ position: "relative", height: "220px", overflow: "hidden" }}>
+  <img
+    src={
+      c.status === "RESOLVED" && c.evidenceUrl
+        ? `http://localhost:8081${c.evidenceUrl}`
+        : c.imageUrl
+        ? `http://localhost:8081${c.imageUrl}`
+        : "https://via.placeholder.com/400x200"
+    }
+    alt={c.title}
+    style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }}
+    onClick={() =>
+      setPreviewImage(
+        c.status === "RESOLVED" && c.evidenceUrl
+          ? `http://localhost:8081${c.evidenceUrl}`
+          : c.imageUrl
+          ? `http://localhost:8081${c.imageUrl}`
+          : null
+      )
+    }
+  />
+
 
                 {c.priority === "HIGH" && (
                   <div style={{
