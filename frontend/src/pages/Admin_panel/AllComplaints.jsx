@@ -153,9 +153,9 @@ const AllComplaints = () => {
   const priorityColor = (priority) => {
     switch (priority) {
       case "LOW": return "default";
-      case "NORMAL": return "info";
+      case "MEDIUM": return "info"; 
       case "HIGH": return "warning";
-      case "URGENT": return "error";
+     // case "URGENT": return "error";
       default: return "default";
     }
   };
@@ -356,7 +356,7 @@ const AllComplaints = () => {
                             "& .MuiOutlinedInput-root": { borderRadius: "10px" }
                           }}
                         >
-                          {["LOW", "NORMAL", "HIGH", "URGENT"].map((p) => (
+                          {["LOW", "MEDIUM", "HIGH"].map((p) => (     //in this line  inplace of normal writing medium, and Urgent is deleted.
                             <MenuItem key={p} value={p}>{p}</MenuItem>
                           ))}
                         </TextField>
