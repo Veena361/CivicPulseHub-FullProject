@@ -43,8 +43,8 @@ const modalStyle = {
 
 const statusOptions = ["PENDING", "IN_PROGRESS", "RESOLVED"];
 
-const UpdateGrievanceModal = ({ open, onClose, grievance, onSubmit }) => {
-  const data = grievance || {};
+const UpdateGrievanceModal = ({ open, onClose, complaint, onSubmit }) => {
+  const data = compalint || {};
   const isResolved = data.status === "RESOLVED";
 
   const [expectedDate, setExpectedDate] = useState(
@@ -132,14 +132,37 @@ const UpdateGrievanceModal = ({ open, onClose, grievance, onSubmit }) => {
         }
       }
 
-      // Show toast based on result
+        {/* // Show toast based on result
       if (failed) {
         setSnackbar({ open: true, message: "Some updates failed", severity: "error" });
       } else {
         setSnackbar({ open: true, message: "Complaint updated successfully", severity: "success" });
         onClose();
         await onSubmit(); // refresh parent list
-      }
+      } */}
+
+      // Replaced and Safe Version 
+     if (failed) {
+  setSnackbar({
+    open: true,
+    message: "Some updates could not be saved. Please review and try again.",
+    severity: "warning",
+  });
+} else {
+  setSnackbar({
+    open: true,
+    message: "Complaint updated successfully",
+    severity: "success",
+  });
+
+  onClose();
+
+  // ✅ SAFE CALL
+  if (typeof onSubmit === "function") {
+    await onSubmit();
+  }
+}
+
 
     } catch (err) {
       console.error("Unexpected error", err);
