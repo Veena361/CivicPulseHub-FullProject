@@ -23,10 +23,9 @@ const OfficerDashboard = () => {
     status: "All",
     priority: "All",
     category: "All",
-  });
+  });   
 
-  useEffect(() => {
-    const fetchComplaints = async () => {
+  const fetchComplaints = async () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
         "http://localhost:8081/api/officer/complaints",
@@ -34,6 +33,16 @@ const OfficerDashboard = () => {
       );
       setComplaints(res.data);
     };
+
+  useEffect(() => {
+    /*const fetchComplaints = async () => {
+      const token = localStorage.getItem("token");
+      const res = await axios.get(
+        "http://localhost:8081/api/officer/complaints",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setComplaints(res.data);
+    }; */
     fetchComplaints();
   }, []);
 
@@ -174,12 +183,19 @@ const OfficerDashboard = () => {
 
           {selected === "Feedback" && <OfficerFeedback />}
 
-          {modalOpen && (
+          {/* {modalOpen && (
             <UpdateGrievanceModal
               complaint={selectedComplaint}
               onClose={handleModalClose}
             />
-          )}
+          )} */} 
+          <UpdateGrievanceModal  
+            open={modalOpen}
+            complaint={selectedComplaint}
+            onClose={handleModalClose}  
+            onSubmit={fetchComplaints}   //Required
+            />
+
         </div>
       </div>
     </div>
